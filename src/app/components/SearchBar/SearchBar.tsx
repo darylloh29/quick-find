@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Input, Button } from '@nextui-org/react'
+import { Card, Input, Button } from '@nextui-org/react'
 import SearchIcon from '../icons/SearchIcon'
 
 export default function SearchBar() {
@@ -18,25 +18,27 @@ export default function SearchBar() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex w-full flex-wrap md:flex-nowrap"
-    >
-      <Input
-        type="search"
-        placeholder="Type to search..."
-        radius="sm"
-        value={query}
-        onChange={handleInputChange}
-      />
-      <Button
-        type="submit"
-        color="primary"
-        radius="sm"
-        startContent={<SearchIcon />}
+    <Card fullWidth radius="none">
+      <form
+        onSubmit={handleSubmit}
+        className="flex p-6 w-full flex-wrap md:flex-nowrap"
       >
-        Search
-      </Button>
-    </form>
+        <Input
+          type="search"
+          placeholder="Type to search..."
+          radius="sm"
+          value={query}
+          onChange={handleInputChange}
+        />
+        <Button
+          type="submit"
+          color="primary"
+          radius="sm"
+          startContent={<SearchIcon />}
+        >
+          Search
+        </Button>
+      </form>
+    </Card>
   )
 }
