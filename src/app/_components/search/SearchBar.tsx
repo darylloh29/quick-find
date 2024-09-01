@@ -8,7 +8,7 @@ import { SearchSuggestionResponse } from '@types'
 const MAX_NUMBER_OF_SUGGESTIONS = 6
 const MIN_CHARS_FOR_SUGGESTIONS = 3
 
-type SearchBarProps = {
+export type SearchBarProps = {
   searchQuery: string
 }
 

@@ -2,11 +2,16 @@ import { Card, CardHeader, CardBody, CardFooter, Link } from '@nextui-org/react'
 import HighlightedText from '@components/common/HighlightedText'
 import { Document } from '@types'
 
-type DocumentRowProps = Document
+export type DocumentRowProps = Document
 
-export default function DocumentRow({ title, excerpt, uri }: DocumentRowProps) {
+export default function DocumentRow({
+  id,
+  title,
+  excerpt,
+  uri,
+}: DocumentRowProps) {
   return (
-    <Card className="flex" fullWidth radius="none" shadow="none">
+    <Card key={id} className="flex" fullWidth radius="none" shadow="none">
       <CardHeader className="flex">
         <Link isExternal href={uri}>
           <HighlightedText
