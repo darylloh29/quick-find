@@ -22,7 +22,8 @@ export default function DocumentsList({ searchQuery }: DocumentsListProps) {
     const fetchDocuments = async () => {
       // Search query to be sent as query params, session token in auth header
       const data = await fetch(
-        process.env.NEXT_PUBLIC_SEARCH_ENDPOINT + `?search=${searchQuery}`
+        process.env.NEXT_PUBLIC_SEARCH_DOCUMENTS_ENDPOINT +
+          `?search=${searchQuery}`
       )
       const jsonData = await data.json()
 
