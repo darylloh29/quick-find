@@ -4,10 +4,7 @@ type DocumentRowProps = TextWithHighlights & {
   className: string
 }
 
-const getHighlightedText = (
-  text: string,
-  highlights: Array<{ beginOffset: number; endOffset: number }>
-) => {
+const getHighlightedText = ({ text, highlights }: TextWithHighlights) => {
   const segments: Array<{ text: string; isHighlighted: boolean }> = []
   let lastIndex = 0
 
@@ -43,7 +40,7 @@ export default function HighlightedText({
   highlights,
   className,
 }: DocumentRowProps) {
-  const segments = getHighlightedText(text, highlights)
+  const segments = getHighlightedText({ text, highlights })
 
   return (
     <p className={className}>
