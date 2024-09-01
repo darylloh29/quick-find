@@ -2,9 +2,13 @@
 
 import { useState } from 'react'
 import { Card, Input, Button } from '@nextui-org/react'
-import SearchIcon from '../icons/SearchIcon'
+import SearchIcon from './SearchIcon'
 
-export default function SearchBar() {
+type SearchBarProps = {
+  onSearch: (query: string) => void
+}
+
+export default function SearchBar({ onSearch }: SearchBarProps) {
   const [query, setQuery] = useState('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,7 +18,7 @@ export default function SearchBar() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!query) return
-    console.log(query)
+    onSearch(query)
   }
 
   return (

@@ -1,9 +1,8 @@
-import DocumentRow from '../DocumentRow/DocumentRow'
+import DocumentRow from './DocumentRow'
 import {
   Document,
   DocumentList,
   DocumentsMetadata,
-  DocumentResponse,
   ResultItemResponse,
 } from '@/types'
 
