@@ -44,11 +44,21 @@ export default function DocumentsList({ searchQuery }: DocumentsListProps) {
             id: DocumentId,
             title: {
               text: DocumentTitle.Text,
-              highlights: DocumentTitle.Highlights,
+              highlights: DocumentTitle.Highlights.map(
+                ({ BeginOffset, EndOffset }) => ({
+                  beginOffset: BeginOffset,
+                  endOffset: EndOffset,
+                })
+              ),
             },
             excerpt: {
               text: DocumentExcerpt.Text,
-              highlights: DocumentExcerpt.Highlights,
+              highlights: DocumentExcerpt.Highlights.map(
+                ({ BeginOffset, EndOffset }) => ({
+                  beginOffset: BeginOffset,
+                  endOffset: EndOffset,
+                })
+              ),
             },
             uri: DocumentURI,
           })

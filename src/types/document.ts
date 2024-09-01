@@ -1,6 +1,6 @@
-type TextWithHighlights = {
+export type TextWithHighlights = {
   text: string
-  highlights: Array<{ BeginOffset: number; EndOffset: number }>
+  highlights: Array<{ beginOffset: number; endOffset: number }>
 }
 
 export interface Document {
