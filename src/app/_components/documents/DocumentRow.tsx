@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardBody, CardFooter, Link } from '@nextui-org/react'
-import HighlightedText from '../common/HighlightedText'
-import { Document } from '@/types'
+import HighlightedText from '@components/common/HighlightedText'
+import { Document } from '@types'
 
 type DocumentRowProps = Document
 

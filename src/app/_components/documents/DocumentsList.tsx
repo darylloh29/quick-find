@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import DocumentRow from './DocumentRow'
-import Loading from '@/app/loading'
+import DocumentRow from '@components/documents/DocumentRow'
+import Loading from '@components/Loading'
 import {
   Document,
   DocumentList,
   DocumentsMetadata,
   ResultItemResponse,
-} from '@/types'
+} from '@types'
 
 type DocumentsListProps = {
   searchQuery: string

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { Card, Input, Button } from '@nextui-org/react'
-import SearchIcon from './SearchIcon'
+import SearchIcon from '@components/search/SearchIcon'
 
 type SearchBarProps = {
   searchQuery: string

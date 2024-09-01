@@ -1,8 +1,8 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import SearchBar from './components/search/SearchBar'
-import DocumentsList from './components/documents/DocumentsList'
+import SearchBar from './_components/search/SearchBar'
+import DocumentsList from './_components/documents/DocumentsList'
 
 export default function Home() {
   const searchParams = useSearchParams()

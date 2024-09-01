@@ -1,4 +1,4 @@
-import { TextWithHighlights } from '@/types'
+import { TextWithHighlights } from '@types'
 
 type DocumentRowProps = TextWithHighlights & {
   className: string
