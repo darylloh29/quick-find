@@ -83,7 +83,6 @@ export default function SearchBar({ searchQuery }: SearchBarProps) {
           onInputChange={handleInputChange}
           menuTrigger="focus"
           isLoading={isLoadingSuggestions}
-          autoFocus={true}
           selectorButtonProps={{
             isDisabled: true,
             className: 'absolute right-0',
