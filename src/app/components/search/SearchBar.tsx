@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { Card, Input, Button } from '@nextui-org/react'
 import SearchIcon from './SearchIcon'
 
@@ -9,6 +9,7 @@ type SearchBarProps = {
 
 export default function SearchBar({ searchQuery }: SearchBarProps) {
   const router = useRouter()
+  const path = usePathname()
 
   const [query, setQuery] = useState<string>(searchQuery)
 
@@ -19,7 +20,7 @@ export default function SearchBar({ searchQuery }: SearchBarProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!query) return
-    router.push(`/?search=${query}`)
+    router.push(path + `?search=${query}`)
   }
 
   return (
