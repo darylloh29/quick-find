@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import DocumentRow from './DocumentRow'
+import Loading from '@/app/loading'
 import {
   Document,
   DocumentList,
@@ -6,65 +8,88 @@ import {
   ResultItemResponse,
 } from '@/types'
 
-export default async function DocumentsList() {
-  try {
-    const data = await fetch(
-      'https://gist.githubusercontent.com/yuhong90/b5544baebde4bfe9fe2d12e8e5502cbf/raw/44deafab00fc808ed7fa0e59a8bc959d255b9785/queryResult.json'
-    )
-    const jsonData = await data.json()
+type DocumentsListProps = {
+  searchQuery: string
+}
 
-    const documentsMetadata: DocumentsMetadata = {
-      totalNumberOfResults: jsonData.TotalNumberOfResults,
-      page: jsonData.Page,
-      pageSize: jsonData.PageSize,
+export default function DocumentsList({ searchQuery }: DocumentsListProps) {
+  const [documents, setDocuments] = useState<DocumentList>()
+  const [documentsMetadata, setDocumentsMetadata] =
+    useState<DocumentsMetadata>()
+  const [isLoading, setisLoading] = useState<boolean>(true)
+
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      // Search query to be sent as query params, session token in auth header
+      const data = await fetch(
+        'https://gist.githubusercontent.com/yuhong90/b5544baebde4bfe9fe2d12e8e5502cbf/raw/44deafab00fc808ed7fa0e59a8bc959d255b9785/queryResult.json' +
+          `?search=${searchQuery}`
+      )
+      const jsonData = await data.json()
+
+      setDocumentsMetadata({
+        totalNumberOfResults: jsonData.TotalNumberOfResults,
+        page: jsonData.Page,
+        pageSize: jsonData.PageSize,
+      })
+
+      setDocuments(
+        jsonData.ResultItems.map(
+          ({
+            DocumentId,
+            DocumentTitle,
+            DocumentExcerpt,
+            DocumentURI,
+          }: ResultItemResponse): Document => ({
+            id: DocumentId,
+            title: {
+              text: DocumentTitle.Text,
+              highlights: DocumentTitle.Highlights,
+            },
+            excerpt: {
+              text: DocumentExcerpt.Text,
+              highlights: DocumentExcerpt.Highlights,
+            },
+            uri: DocumentURI,
+          })
+        )
+      )
+
+      setisLoading(false)
     }
 
-    const documents: DocumentList = jsonData.ResultItems.map(
-      ({
-        DocumentId,
-        DocumentTitle,
-        DocumentExcerpt,
-        DocumentURI,
-      }: ResultItemResponse): Document => ({
-        id: DocumentId,
-        title: {
-          text: DocumentTitle.Text,
-          highlights: DocumentTitle.Highlights,
-        },
-        excerpt: {
-          text: DocumentExcerpt.Text,
-          highlights: DocumentExcerpt.Highlights,
-        },
-        uri: DocumentURI,
-      })
-    )
+    fetchDocuments()
+  }, [searchQuery])
 
-    return (
-      <div className="flex flex-col p-3 gap-3">
-        <p className="p-3 text-lg font-bold">
-          Showing 1-{documentsMetadata.pageSize} of{' '}
-          {documentsMetadata.totalNumberOfResults} Results
-        </p>
-        {documents.map(({ id, title, excerpt, uri }) => {
-          return (
-            <DocumentRow
-              key={id}
-              id={id}
-              title={title}
-              excerpt={excerpt}
-              uri={uri}
-            />
-          )
-        })}
-      </div>
-    )
-  } catch (e) {
-    console.error('Error fetching documents:', e)
+  if (isLoading) {
+    return <Loading />
+  }
 
+  if (!documentsMetadata || !documents) {
     return (
-      <div className="text-red-500">
-        Error fetching documents. Please try again later.
-      </div>
+      <p className="flex m-8 text-red-500">
+        Error fetching documents, try again later.
+      </p>
     )
   }
+
+  return (
+    <div className="flex flex-col p-3 gap-3">
+      <p className="p-3 text-lg font-bold">
+        Showing 1-{documentsMetadata.pageSize} of{' '}
+        {documentsMetadata.totalNumberOfResults} Results
+      </p>
+      {documents.map(({ id, title, excerpt, uri }) => {
+        return (
+          <DocumentRow
+            key={id}
+            id={id}
+            title={title}
+            excerpt={excerpt}
+            uri={uri}
+          />
+        )
+      })}
+    </div>
+  )
 }

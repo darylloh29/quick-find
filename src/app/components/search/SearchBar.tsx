@@ -1,15 +1,16 @@
-'use client'
-
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Card, Input, Button } from '@nextui-org/react'
 import SearchIcon from './SearchIcon'
 
 type SearchBarProps = {
-  onSearch: (query: string) => void
+  searchQuery: string
 }
 
-export default function SearchBar({ onSearch }: SearchBarProps) {
-  const [query, setQuery] = useState('')
+export default function SearchBar({ searchQuery }: SearchBarProps) {
+  const router = useRouter()
+
+  const [query, setQuery] = useState<string>(searchQuery)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value)
@@ -18,7 +19,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!query) return
-    onSearch(query)
+    router.push(`/?search=${query}`)
   }
 
   return (
@@ -35,6 +36,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
           onChange={handleInputChange}
         />
         <Button
+          className="flex grow"
           type="submit"
           color="primary"
           radius="sm"
