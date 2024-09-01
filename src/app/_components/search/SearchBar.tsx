@@ -38,10 +38,11 @@ export default function SearchBar({ searchQuery }: SearchBarProps) {
   }
 
   useEffect(() => {
-    if (debouncedQuery.length < MIN_CHARS_FOR_SUGGESTIONS) {
-      setSuggestions([])
-      return
-    }
+    if (query.length < MIN_CHARS_FOR_SUGGESTIONS) setSuggestions([])
+  }, [query])
+
+  useEffect(() => {
+    if (debouncedQuery.length < MIN_CHARS_FOR_SUGGESTIONS) return
 
     const getSearchSuggestions = async () => {
       // Search query to be sent as query params, session token in auth header
