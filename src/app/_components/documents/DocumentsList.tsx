@@ -34,16 +34,11 @@ export default function DocumentsList({ searchQuery }: DocumentsListProps) {
 
       setDocuments(
         jsonData.ResultItems.map(
-          ({
-            DocumentId,
-            DocumentTitle,
-            DocumentExcerpt,
-            DocumentURI,
-          }: ResultItemResponse): Document => ({
-            id: DocumentId,
+          (resultItems: ResultItemResponse): Document => ({
+            id: resultItems.DocumentId,
             title: {
-              text: DocumentTitle.Text,
-              highlights: DocumentTitle.Highlights.map(
+              text: resultItems.DocumentTitle.Text,
+              highlights: resultItems.DocumentTitle.Highlights.map(
                 ({ BeginOffset, EndOffset }) => ({
                   beginOffset: BeginOffset,
                   endOffset: EndOffset,
@@ -51,15 +46,15 @@ export default function DocumentsList({ searchQuery }: DocumentsListProps) {
               ),
             },
             excerpt: {
-              text: DocumentExcerpt.Text,
-              highlights: DocumentExcerpt.Highlights.map(
+              text: resultItems.DocumentExcerpt.Text,
+              highlights: resultItems.DocumentExcerpt.Highlights.map(
                 ({ BeginOffset, EndOffset }) => ({
                   beginOffset: BeginOffset,
                   endOffset: EndOffset,
                 })
               ),
             },
-            uri: DocumentURI,
+            uri: resultItems.DocumentURI,
           })
         )
       )
