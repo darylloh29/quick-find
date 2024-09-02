@@ -87,6 +87,9 @@ export default function SearchBar({ searchQuery }: SearchBarProps) {
             isDisabled: true,
             className: 'absolute right-0',
           }}
+          clearButtonProps={{
+            className: 'mr-1',
+          }}
           listboxProps={{
             hideSelectedIcon: true,
           }}
